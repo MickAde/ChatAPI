@@ -14,3 +14,111 @@ Authenticates users via username and password. Returns a token for future authen
 Deducts 100 tokens per question asked. Provides AI-generated responses (dummy implementation for demonstration). Saves chat history (user message, AI response, and timestamp). Token Balance Retrieval
 
 Displays the remaining tokens for the authenticated user.
+
+
+Sample Inputs and outputs
+
+1) ----RegisterView---
+GET: Retrieve All Registered Users
+-Request:  /register/v1/
+-Response:
+  [
+      {
+          "id": 1,
+          "username": "Edward",
+          "tokens": 4000
+      },
+      {
+          "id": 2,
+          "username": "Michael",
+          "tokens": 4000
+      }
+  ]
+
+POST
+-Request: /register/v1/
+  Content-Type: application/json
+  {
+      "username": "Edward",
+      "password": "adeoluwa"
+  }
+-Response (Success):
+  {
+      "message": "User registered successfully"
+  }
+-Response (Failure):
+  {
+      "error": "Username already exists"
+  }
+
+
+2. -----LoginView-----
+GET:
+-Request:/login/v1/
+-Response:
+  {
+      "message": "Please send a POST with login credentials"
+  }
+
+POST: Authenticate a User
+-Request: /login/v1/
+  Content-Type: application/json
+  {
+      "username": "Edward",
+      "password": "adeoluwa"
+  }
+
+-Response (Success):
+  {
+      "token": "1234567890abcdef1234567890abcdef",
+      "message": "Login successful"
+  }
+-Response (Failure):
+  {
+      "status": false,
+      "data": {
+          "username": ["This field is required."],
+          "password": ["This field is required."]
+      },
+      "message": "Invalid username or password"
+  }
+
+
+3. -----ChatView-----
+POST: Send a Message to the AI Chatbot
+Request: /chat/v1/
+  Authorization: Token 1234567890abcdef1234567890abcdef
+  Content-Type: application/json
+  {
+      "message": "What is the weather today?"
+  }
+Response (Success):
+  {
+      "message": "What is the weather today?",
+      "response": "AI response to: What is the weather today?",
+      "remaining_tokens": 3900,
+      "timestamp": "2025-01-13T10:30:00Z"
+  }
+Response (Failure: No Message Provided):
+  {
+      "error": "Message is required"
+  }
+Response (Failure: Insufficient Tokens):
+  {
+      "error": "Insufficient tokens"
+  }
+
+
+4. -----TokenBalanceView-----
+GET: Retrieve User Token Balance
+-Request: /tokens/v1/
+  Authorization: Token 1234567890abcdef1234567890abcdef
+
+-Response:
+  {
+      "tokens": 3900
+  }
+Response (Failure: Invalid Token):
+  {
+      "detail": "Invalid token"
+  }

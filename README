@@ -1,0 +1,16 @@
+<!-- CHATAPI -->
+<!-- DESCRIPTION -->
+
+This project is a RESTful API implementation for an AI-powered chat system.
+Users can register, log in, interact with the AI chatbot, and manage their token balance. 
+The system leverages Django REST Framework (DRF) and includes features like user authentication, token-based interactions, and chat history management.
+
+<!-- Features User Registration -->
+
+Registers new users with a default token balance of 4000. Ensures unique usernames. User Login
+
+Authenticates users via username and password. Returns a token for future authenticated API requests. AI Chat Interaction
+
+Deducts 100 tokens per question asked. Provides AI-generated responses (dummy implementation for demonstration). Saves chat history (user message, AI response, and timestamp). Token Balance Retrieval
+
+Displays the remaining tokens for the authenticated user.
